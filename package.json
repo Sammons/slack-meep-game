@@ -1,5 +1,5 @@
 {
-  "name": "meep game with slack!",
+  "name": "meep-game",
   "version": "0.0.0",
   "description": "meep bot referee",
   "main": "index.js",
@@ -10,5 +10,8 @@
     "slack"
   ],
   "author": "Ben Sammons",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "slackbotapi": "git://github.com/Sammons/slackbotapi"
+  }
 }

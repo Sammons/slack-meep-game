@@ -3,7 +3,7 @@ var slackAPI = require('slackbotapi');
 
 // Starting
 var slack = new slackAPI({
-	'token': process.env.SLACK_BOT,
+	'token': process.env.SLACK_BOT_REF,
 	'logging': true
 });
 // BattleBots C02T3BUV1
@@ -39,8 +39,8 @@ function reportScores(data) {
 	var scoreBoard = [];
 	for (var key in users) {
 		scoreBoard.push({ 
-			user: username(data.user),
-			score : getScore(data.user) 
+			user: username(users[key].userid),
+			score : getScore(users[key].userid) 
 		});
 	}
 	scoreBoard.sort(function(a,b){return a.score > b.score});
@@ -52,7 +52,7 @@ function reportScores(data) {
 }
 
 function applyMoop(data) {
-	if (!users[data.user]) users[data.user] = { scores: [] };
+	if (!users[data.user]) users[data.user] = { scores: [], userid: data.user };
 	var now = Date.now()
 	for (var key in users) {
 		if (users[key].scoring === true) {
@@ -80,4 +80,9 @@ slack.on('message', function(data) {
 
 slack.on('hello', function(data) {
 	slack.sendMsg(battlebotsChannel, "Referee initialized - all scores zeroed")
+	setInterval(function() {
+		slack.sendMsg(battlebotsChannel, "Clearing Scores, resetting, here are the results:")
+		reportScores()
+		users = {};
+	}, 1000*60*1)
 })
