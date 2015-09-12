@@ -30,5 +30,5 @@ slack.on('hello', function(data) {
 	setInterval(function() {
 		if (!limited)
 			sendMessageRandomly();
-	},100);
+	},2000);
 })

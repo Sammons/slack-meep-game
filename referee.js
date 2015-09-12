@@ -63,7 +63,6 @@ function applyMoop(data) {
 }
 
 function applyMeep(data) {
-	if (!users[data.user]) users[data.user] = { scores: [] };
 	if (countUsersActivelyScoring() >= Math.floor(Object.keys(users)*0.25)) return slack.sendMsg(battlebotsChannel, "Invalid Meep; >25% of players trying to meep");
 	if (users[data.user].scoring === true) return;
 	users[data.user].scoring = true;
@@ -72,6 +71,7 @@ function applyMeep(data) {
 
 slack.on('message', function(data) {
 	if (data.channel === battlebotsChannel) {
+		if (!users[data.user]) users[data.user] = { scores: [] };
 		if (data.text === "Scores") return reportScores(data);
 		if (data.text === "Meep") return applyMeep(data);
 		if (data.text === "Moop") return applyMoop(data);
