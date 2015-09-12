@@ -1,0 +1,14 @@
+{
+  "name": "meep game with slack!",
+  "version": "0.0.0",
+  "description": "meep bot referee",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo no tests here"
+  },
+  "keywords": [
+    "slack"
+  ],
+  "author": "Ben Sammons",
+  "license": "MIT"
+}
